@@ -3,6 +3,12 @@ from tensorflow import keras
 
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib import image
+
+
+
+import cv2 as cv
+
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
 from importlib import reload
@@ -13,6 +19,10 @@ from itertools import repeat
 from numba import jit, cuda
 import time
 
+
+
+project_path="C:/Users/pc/Nextcloud/Python/GITHUB/FastApi-app"
+model_path=project_path+'/models/'
 
 def data_load():
     (x_train,y_train), (x_test, y_test)= keras.datasets.mnist.load_data()
@@ -28,7 +38,6 @@ def main():
     x_train=x_train.reshape(-1,28,28,1)  # rajouter 1 parceque CNN besoin de profondeur qui est le niveau de couleur de l'image
     x_test=x_test.reshape(-1,28,28,1)  # de la même façon
 
-
     print("X train set dimensions --- ", x_train.shape)
     print("X test set dimensions --- ", x_test.shape)
 
@@ -36,16 +45,11 @@ def main():
     print("y test set dimensions --- ", y_test.shape)
 
 
-
     ## normalisation 
-
     xmax=x_train.max()
-
 
     x_train=x_train/xmax
     x_test=x_test/xmax
-
-
 
     # quelque exemple de la data
     num_row = 2
@@ -65,8 +69,6 @@ def main():
         j=j+1
         
     plt.show()
-
-
 
     # model architecture 
     model=keras.models.Sequential()
@@ -88,7 +90,6 @@ def main():
 
     model.add(keras.layers.Dense(len(np.unique(y_train)), activation="softmax")) # output results : number of differents classes of target
 
-
     model.summary()
 
 
@@ -97,10 +98,7 @@ def main():
                   loss="sparse_categorical_crossentropy",
                   metrics=["accuracy"])
 
-
-
     #training
-
     batch_size = 512
     epochs     = 16
 
@@ -109,7 +107,8 @@ def main():
                          epochs = epochs ,
                          verbose = 1,
                          validation_data=(x_test, y_test))
-
+    
+    model.save(model_path)
 
     score=model.evaluate(x_test, y_test, verbose=0)
     
@@ -130,12 +129,9 @@ def main():
     plt.ylabel('Accuracy')
     plt.legend()
     plt.show()
-    
-    
+      
     print('Test loss :',  score[0])
     print('Test accuracy :' , score[1])
-    
-    
     
     # confusion matrix 
     y_sigmoid=model.predict(x_test)
@@ -145,9 +141,7 @@ def main():
     mat_plot=ConfusionMatrixDisplay(mat)
     mat_plot.plot()
     plt.show()
-    
-    
-    
+      
     # plot some errors 
     error=[i for i in range(len(x_test)) if y_test[i]!=y_pred[i]]
     rand=random.sample(error, 10)
@@ -173,15 +167,10 @@ def main():
     plt.show()
     
     
+
     return(history)
     
 
 
-
-
-
-
-
-
-
+main()
 
