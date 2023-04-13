@@ -14,7 +14,6 @@ from PIL import Image
 from io import BytesIO
 
 
-
 project_path="C:/Users/pc/Nextcloud/Python/GITHUB/FastApi-app/"
 static_dir=project_path+"index_files/"
 model_path=project_path+'models/'
