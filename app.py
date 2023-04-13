@@ -4,7 +4,6 @@ from tensorflow import keras
 import numpy as np 
 import cv2 as cv
 
-
 from fastapi import FastAPI, Request, Form, UploadFile, File
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
