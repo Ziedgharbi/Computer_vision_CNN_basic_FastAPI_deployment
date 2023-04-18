@@ -162,8 +162,8 @@ def main():
         
     fig.suptitle('Reall value vs predicted (between brackets)')    
     plt.show()
-    
-    
+   
+
 
     return(history)
     
