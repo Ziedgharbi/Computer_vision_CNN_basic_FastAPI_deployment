@@ -144,7 +144,6 @@ def main():
     
     num_row = 2
     num_col = 5
-   
 
     fig = plt.figure(figsize=(1.5*num_col,2*num_row))
     j=1
