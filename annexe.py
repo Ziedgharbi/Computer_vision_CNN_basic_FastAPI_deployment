@@ -17,7 +17,6 @@ from itertools import repeat
 from numba import jit, cuda
 import time
 
-
 project_path="C:/Users/pc/Nextcloud/Python/GITHUB/FastApi-app"
 model_path=project_path+'/models/'
 
@@ -165,8 +164,7 @@ def main():
    
 
 
-    return(history)
-    
+    return(history) 
 
 main()
 
